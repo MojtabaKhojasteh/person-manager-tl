@@ -1,11 +1,10 @@
 import React from "react";
 
-const Person =({firstname,lastname,age,children})=>{
+const Person =({firstname,lastname,age})=>{
     return(
         <div>
             <p>{`${firstname} ${lastname} ${age} `}</p>
             <hr />
-            <p>{children}</p>
         </div>
     );
 }
