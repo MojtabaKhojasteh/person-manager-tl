@@ -1,16 +1,16 @@
-import React,{Component} from "react";
-import Person from "./components/person";
+import React from "react";
+import Person from "./components/Person";
 import "./App.css";
 
-class App extends Component{
-    render(){
-        return(
-            <div>
-                <h1>Hello World</h1>
-                <hr />
-                <Person/>
-            </div>
-        );
-    }
+const App =()=>{
+    return(
+        <div className="App">
+            <h1>Hello World </h1>
+            <Person firstname="Mojtaba" lastname="Khojasteh" age="31">
+                Toplearn
+            </Person>
+        </div>
+    );
 }
+
 export default App;

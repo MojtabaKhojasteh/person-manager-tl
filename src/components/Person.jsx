@@ -1,9 +1,14 @@
-import React,{Component} from "react";
+import React from "react";
 
-class Person extends Component{
-    render(){
-        return <p>Mojtaba Khojasteh</p>
-    }
+const Person =({firstname,lastname,age,children})=>{
+    return(
+        <div>
+            <p>{`${firstname} ${lastname} ${age} `}</p>
+            <hr />
+            <p>{children}</p>
+        </div>
+    );
 }
+
 
 export default Person;
