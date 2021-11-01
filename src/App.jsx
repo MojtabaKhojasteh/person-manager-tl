@@ -23,9 +23,13 @@ class App extends Component {
   };
   
   render() {
+
+    const style={
+      color:"red",
+    };
     return (
-      <div className="App">
-        <h1>Hello World </h1>
+      <div className="App" style={style}>
+        <h1>سلام دنیا </h1>
         {this.state.persons.map((fard) => (
           <Person
             firstname={fard.firstname}
