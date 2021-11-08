@@ -1,43 +1,46 @@
 import React, { Component } from "react";
-import Person from "./components/Person";
+
+import Afrad from "./components/Afrad";
 import "./App.css";
 
 class App extends Component {
   state = {
     persons: [
-      { firstname: "mojtaba", lastname: "khojasteh", age: 31 },
-      { firstname: "ali", lastname: "akbari", age: 25 },
-      { firstname: "amin", lastname: "hoseyni", age: 40 },
+      { firstname: "مجتبی", lastname: "خجسته" },
+      { firstname: "احد", lastname: "بیرامی" },
+      { firstname: "سجاد", lastname: "ظاهرنیا" },
     ],
+    showPersons: false,
   };
 
-  handlePersonsChange = () => {
-      this.setState({
-        persons: [
-          { firstname: "ahad", lastname: "beyrami", age: 31 },
-          { firstname: "sam", lastname: "khosravi", age: 25 },
-          { firstname: "sajjad", lastname: "zahernia", age: 40 },
-        ],
-      }
-      );
+  handleShowPersons = () => {
+    this.setState({ showPersons: !this.state.showPersons });
   };
-  
   render() {
+    const { persons, showPersons } = this.state;
 
-    const style={
-      color:"red",
+    let show = null;
+    if (showPersons) {
+      show = <Afrad persons={persons} />;
+    }
+
+    const style = {
+      textAlign: "center",
     };
+    const buttonStyle = {
+      padding: "1em",
+      fontFamily: "BYekan",
+      backgroundColor: "pink",
+    };
+
     return (
-      <div className="App" style={style}>
-        <h1>سلام دنیا </h1>
-        {this.state.persons.map((fard) => (
-          <Person
-            firstname={fard.firstname}
-            lastname={fard.lastname}
-            age={fard.age}
-          />
-        ))}
-        <button onClick={this.handlePersonsChange}>تغییر بده</button>
+      <div style={style}>
+        <h2>مدیریت کننده اشخاص</h2>
+        <h4>تعداد اشخاص {persons.length} نفر می باشد</h4>
+        {show}
+        <button style={buttonStyle} onClick={this.handleShowPersons}>
+          نمایش اشخاص
+        </button>
       </div>
     );
   }
