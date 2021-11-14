@@ -1,8 +1,8 @@
 import React from "react";
 
-const Fard = ({ firstname, lastname }) => {
+const Fard = ({ firstname, lastname, deleted }) => {
   return (
-    <div>
+    <div onClick={deleted} style={{ cursor: "pointer" }}>
       <p>{`${firstname} ${lastname}`}</p>
       <hr />
     </div>
