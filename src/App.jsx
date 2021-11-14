@@ -6,9 +6,9 @@ import "./App.css";
 class App extends Component {
   state = {
     persons: [
-      { id: 1, firstname: "مجتبی", lastname: "خجسته" },
-      { id: 2, firstname: "احد", lastname: "بیرامی" },
-      { id: 3, firstname: "سجاد", lastname: "ظاهرنیا" },
+      { id: 1, fullname: "مجتبی خجسته" },
+      { id: 2, fullname: "احد بیرامی" },
+      { id: 3, fullname: "سجاد ظاهرنیا" },
     ],
     showPersons: false,
   };
@@ -23,12 +23,25 @@ class App extends Component {
     this.setState({ persons: filteredPersons });
   };
 
+  personNameChange = (event, id) => {
+    const newPersons = [...this.state.persons];
+    const index = newPersons.findIndex((item) => item.id === id);
+    newPersons[index].fullname = event.target.value;
+    this.setState({ persons: newPersons });
+  };
+
   render() {
     const { persons, showPersons } = this.state;
 
     let show = null;
     if (showPersons) {
-      show = <Afrad persons={persons} personDelete={this.handleDeletePerson} />;
+      show = (
+        <Afrad
+          persons={persons}
+          personDelete={this.handleDeletePerson}
+          personChange={this.personNameChange}
+        />
+      );
     }
 
     const style = {
