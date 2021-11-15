@@ -5,11 +5,8 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    persons: [
-      { id: 1, fullname: "مجتبی خجسته" },
-      { id: 2, fullname: "احد بیرامی" },
-      { id: 3, fullname: "سجاد ظاهرنیا" },
-    ],
+    persons: [],
+    newPerson: "",
     showPersons: false,
   };
 
@@ -18,18 +15,30 @@ class App extends Component {
   };
 
   handleDeletePerson = (id) => {
-    const newPersons = [...this.state.persons];
-    const filteredPersons = newPersons.filter((item) => item.id !== id);
+    const copyPersons = [...this.state.persons];
+    const filteredPersons = copyPersons.filter((item) => item.id !== id);
     this.setState({ persons: filteredPersons });
   };
 
   personNameChange = (event, id) => {
-    const newPersons = [...this.state.persons];
-    const index = newPersons.findIndex((item) => item.id === id);
-    newPersons[index].fullname = event.target.value;
-    this.setState({ persons: newPersons });
+    const copyPersons = [...this.state.persons];
+    const index = copyPersons.findIndex((item) => item.id === id);
+    copyPersons[index].fullname = event.target.value;
+    this.setState({ persons: copyPersons });
   };
 
+  handleNewPerson = () => {
+    const copyPersons = [...this.state.persons];
+    const person = {
+      id: Math.floor(Math.random() * 1000),
+      fullname: this.state.newPerson,
+    };
+    copyPersons.push(person);
+    this.setState({ persons: copyPersons, newPerson: "" });
+  };
+  addPerson = (event) => {
+    this.setState({ newPerson: event.target.value });
+  };
   render() {
     const { persons, showPersons } = this.state;
 
@@ -57,10 +66,20 @@ class App extends Component {
       <div style={style}>
         <h2>مدیریت کننده اشخاص</h2>
         <h4>تعداد اشخاص {persons.length} نفر می باشد</h4>
-        {show}
+        <div>
+          <input
+            type="text"
+            placeholder="اضافه کردن شخص جدید"
+            style={{ direction: "rtl" }}
+            onChange={this.addPerson}
+            value={this.state.newPerson}
+          />
+          <button onClick={this.handleNewPerson}>اضافه کن</button>
+        </div>
         <button style={buttonStyle} onClick={this.handleShowPersons}>
           نمایش اشخاص
         </button>
+        {show}
       </div>
     );
   }
