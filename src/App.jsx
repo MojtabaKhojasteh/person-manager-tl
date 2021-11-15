@@ -56,11 +56,6 @@ class App extends Component {
     const style = {
       textAlign: "center",
     };
-    const buttonStyle = {
-      padding: "1em",
-      fontFamily: "BYekan",
-      backgroundColor: "pink",
-    };
 
     return (
       <div style={style}>
@@ -76,9 +71,10 @@ class App extends Component {
           />
           <button onClick={this.handleNewPerson}>اضافه کن</button>
         </div>
-        <button style={buttonStyle} onClick={this.handleShowPersons}>
-          نمایش اشخاص
-        </button>
+        <button
+          className="btn btn-sm btn-success  fa fa-plus-square"
+          onClick={this.handleShowPersons}
+        ></button>
         {show}
       </div>
     );
