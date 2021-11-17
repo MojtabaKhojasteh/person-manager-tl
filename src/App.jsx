@@ -44,6 +44,12 @@ class App extends Component {
     const { persons, showPersons } = this.state;
 
     let show = null;
+
+    let badgeStyle = "";
+    if (persons.length <= 1) badgeStyle = "badge-danger";
+    if (persons.length <= 2) badgeStyle = "badge-warning";
+    if (persons.length >= 3) badgeStyle = "badge-success";
+
     if (showPersons) {
       show = (
         <Afrad
@@ -62,7 +68,7 @@ class App extends Component {
         <div className="alert alert-light">
           <h5>
             تعداد اشخاص
-            <span className="badge badge-pill badge-success">
+            <span className={`badge badge-pill ${badgeStyle}`}>
               {persons.length}
             </span>
             نفر می باشد
@@ -86,13 +92,16 @@ class App extends Component {
                 <button
                   type="submit"
                   onClick={this.handleNewPerson}
-                  className="btn btn-sm btn-success fa fa-plus-sircle"
+                  className="btn btn-sm btn-success fa fa-plus-square"
                 ></button>
               </div>
             </div>
           </form>
         </div>
-        <button onClick={this.handleShowPersons} className="btn btn-info">
+        <button
+          onClick={this.handleShowPersons}
+          className={showPersons ? "btn btn-info" : "btn btn-danger"}
+        >
           نمایش اشخاص
         </button>
         {show}
