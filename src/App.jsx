@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import Afrad from "./components/Afrad";
+import "./App.css";
 
 class App extends Component {
   state = {
@@ -70,7 +71,7 @@ class App extends Component {
 
     return (
       <div className="rtl text-center">
-        <ToastContainer />;
+        <ToastContainer bodyClassName="toastify" />;
         <div className="alert alert-info">
           <h2>مدیریت کننده اشخاص</h2>
         </div>
