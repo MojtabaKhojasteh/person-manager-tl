@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { ToastContainer, toast } from "react-toastify";
 import Afrad from "./components/Afrad";
 
 class App extends Component {
@@ -17,6 +17,9 @@ class App extends Component {
     const copyPersons = [...this.state.persons];
     const filteredPersons = copyPersons.filter((item) => item.id !== id);
     this.setState({ persons: filteredPersons });
+
+    const index = copyPersons.findIndex((p) => p.id === id);
+    toast.error(`${copyPersons[index].fullname} حذف گردید`);
   };
 
   personNameChange = (event, id) => {
@@ -35,6 +38,11 @@ class App extends Component {
     if (person.fullname !== "" && person.fullname !== " ") {
       copyPersons.push(person);
       this.setState({ persons: copyPersons, newPerson: "" });
+      toast.success("شخص با موفقیت افزوده شد", {
+        position: "bottom-right",
+        closeButton: true,
+        closeOnClick: true,
+      });
     }
   };
   addPerson = (event) => {
@@ -62,6 +70,7 @@ class App extends Component {
 
     return (
       <div className="rtl text-center">
+        <ToastContainer />;
         <div className="alert alert-info">
           <h2>مدیریت کننده اشخاص</h2>
         </div>
@@ -74,7 +83,6 @@ class App extends Component {
             نفر می باشد
           </h5>
         </div>
-
         <div className="m-2 p-2">
           <form
             className="form-inline justify-content-center"
