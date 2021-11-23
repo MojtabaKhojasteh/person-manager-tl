@@ -3,6 +3,8 @@ import { ToastContainer, toast } from "react-toastify";
 import Afrad from "./components/Afrad";
 import "./App.css";
 import Header from "./components/Header";
+import NewPerson from "./components/NewPerson";
+import SimpleContext from "./SimpleContext";
 
 class App extends Component {
   state = {
@@ -48,59 +50,46 @@ class App extends Component {
       });
     }
   };
+
   addPerson = (event) => {
     this.setState({ newPerson: event.target.value });
   };
+
   render() {
-    const { persons, showPersons, appTitle } = this.state;
+    const { showPersons } = this.state;
 
     let show = null;
-
     if (showPersons) {
-      show = (
-        <Afrad
-          persons={persons}
-          personDelete={this.handleDeletePerson}
-          personChange={this.personNameChange}
-        />
-      );
+      show = <Afrad />;
     }
 
     return (
-      <div className="rtl text-center">
-        <Header personLength={persons.length} appTitle={appTitle} />
-        <ToastContainer bodyClassName="toastify" />
-        <div className="m-2 p-2">
-          <form
-            className="form-inline justify-content-center"
-            onSubmit={(event) => event.preventDefault()}
+      <SimpleContext.Provider
+        value={{
+          state: this.state,
+          handleShowPersons: this.handleShowPersons,
+          handleDeletePerson: this.handleDeletePerson,
+          handleNewPerson: this.handleNewPerson,
+          personNameChange: this.personNameChange,
+          addPerson: this.addPerson,
+        }}
+      >
+        <div className="rtl text-center">
+          <Header />
+          <NewPerson />
+
+          <button
+            onClick={this.handleShowPersons}
+            className={showPersons ? "btn btn-info" : "btn btn-danger"}
           >
-            <div className="input-group w-25">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="اسم بهم بده"
-                onChange={this.addPerson}
-                value={this.state.newPerson}
-              />
-              <div className="input-group-prepend">
-                <button
-                  type="submit"
-                  onClick={this.handleNewPerson}
-                  className="btn btn-sm btn-success fa fa-plus-square"
-                ></button>
-              </div>
-            </div>
-          </form>
+            نمایش اشخاص
+          </button>
+
+          {show}
+
+          <ToastContainer bodyClassName="toastify" />
         </div>
-        <button
-          onClick={this.handleShowPersons}
-          className={showPersons ? "btn btn-info" : "btn btn-danger"}
-        >
-          نمایش اشخاص
-        </button>
-        {show}
-      </div>
+      </SimpleContext.Provider>
     );
   }
 }

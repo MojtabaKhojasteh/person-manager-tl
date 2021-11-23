@@ -1,9 +1,15 @@
-import react from "react";
-const Header = ({ personLength, appTitle }) => {
+import React, { useContext } from "react";
+import SimpleContext from "../SimpleContext";
+
+const Header = () => {
+  const context = useContext(SimpleContext);
+  const { persons, appTitle } = context.state;
+
   let badgeStyle = "";
-  if (personLength <= 1) badgeStyle = "badge-danger";
-  if (personLength <= 2) badgeStyle = "badge-warning";
-  if (personLength >= 3) badgeStyle = "badge-success";
+  if (persons.length <= 1) badgeStyle = "badge-danger";
+  if (persons.length <= 2) badgeStyle = "badge-warning";
+  if (persons.length >= 3) badgeStyle = "badge-success";
+
   return (
     <div>
       <div className="alert alert-info">
@@ -13,7 +19,7 @@ const Header = ({ personLength, appTitle }) => {
         <h5>
           تعداد اشخاص
           <span className={`badge badge-pill ${badgeStyle}`}>
-            {personLength}
+            {persons.length}
           </span>
           نفر می باشد
         </h5>

@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import SimpleContext from "../SimpleContext";
 
-const Fard = ({ fullname, deleted, changed }) => {
+const Fard = ({ deleted, changed }) => {
+  const context = useContext(SimpleContext);
+  const { fullname } = context.state.persons;
+
   return (
     <div className="card text-white bg-info mt-3 w-25 mx-auto">
       <div className="card-body text-center">

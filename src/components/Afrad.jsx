@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import SimpleContext from "../SimpleContext.js";
 import Fard from "./Fard.jsx";
 
-const Afrad = ({ persons, personDelete, personChange }) => {
+const Afrad = () => {
+  const context = useContext(SimpleContext);
+  const { persons } = context.state;
+
   return (
     <div>
       {persons.map((fard) => (
         <Fard
           key={fard.id}
-          fullname={fard.fullname}
-          deleted={() => personDelete(fard.id)}
-          changed={(event) => personChange(event, fard.id)}
+          deleted={() => context.handleDeletePerson(fard.id)}
+          changed={(event) => context.personNameChange(event, fard.id)}
         />
       ))}
     </div>
