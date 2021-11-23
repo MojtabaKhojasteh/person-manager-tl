@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import Afrad from "./components/Afrad";
 import "./App.css";
+import Header from "./components/Header";
 
 class App extends Component {
   state = {
     persons: [],
     newPerson: "",
     showPersons: true,
+    appTitle: "مدیریت کننده اشخاص",
   };
 
   handleShowPersons = () => {
@@ -50,14 +52,9 @@ class App extends Component {
     this.setState({ newPerson: event.target.value });
   };
   render() {
-    const { persons, showPersons } = this.state;
+    const { persons, showPersons, appTitle } = this.state;
 
     let show = null;
-
-    let badgeStyle = "";
-    if (persons.length <= 1) badgeStyle = "badge-danger";
-    if (persons.length <= 2) badgeStyle = "badge-warning";
-    if (persons.length >= 3) badgeStyle = "badge-success";
 
     if (showPersons) {
       show = (
@@ -71,19 +68,8 @@ class App extends Component {
 
     return (
       <div className="rtl text-center">
-        <ToastContainer bodyClassName="toastify" />;
-        <div className="alert alert-info">
-          <h2>مدیریت کننده اشخاص</h2>
-        </div>
-        <div className="alert alert-light">
-          <h5>
-            تعداد اشخاص
-            <span className={`badge badge-pill ${badgeStyle}`}>
-              {persons.length}
-            </span>
-            نفر می باشد
-          </h5>
-        </div>
+        <Header personLength={persons.length} appTitle={appTitle} />
+        <ToastContainer bodyClassName="toastify" />
         <div className="m-2 p-2">
           <form
             className="form-inline justify-content-center"
