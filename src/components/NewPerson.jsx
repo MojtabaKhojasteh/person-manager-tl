@@ -3,7 +3,7 @@ import SimpleContext from "../SimpleContext";
 
 const NewPerson = () => {
   const context = useContext(SimpleContext);
-  const { newPerson } = context.state;
+  const { newPerson } = context;
   return (
     <div className="m-2 p-2">
       <form

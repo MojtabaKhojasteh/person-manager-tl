@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import SimpleContext from "../SimpleContext";
 
-const Header = () => {
+const Header = ({ appTitle }) => {
   const context = useContext(SimpleContext);
-  const { persons, appTitle } = context.state;
+  const { persons } = context;
 
   let badgeStyle = "";
   if (persons.length <= 1) badgeStyle = "badge-danger";

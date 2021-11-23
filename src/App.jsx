@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import Afrad from "./components/Afrad";
 import "./App.css";
@@ -6,43 +6,41 @@ import Header from "./components/Header";
 import NewPerson from "./components/NewPerson";
 import SimpleContext from "./SimpleContext";
 
-class App extends Component {
-  state = {
-    persons: [],
-    newPerson: "",
-    showPersons: true,
-    appTitle: "مدیریت کننده اشخاص",
+const App = () => {
+  const [getPersons, setPersons] = useState([]);
+  const [getNewPerson, setNewPerson] = useState("");
+  const [getShowPerson, setShowPerson] = useState(true);
+
+  const handleShowPersons = () => {
+    setShowPerson(!getShowPerson);
   };
 
-  handleShowPersons = () => {
-    this.setState({ showPersons: !this.state.showPersons });
-  };
-
-  handleDeletePerson = (id) => {
-    const copyPersons = [...this.state.persons];
+  const handleDeletePerson = (id) => {
+    const copyPersons = [...getPersons];
     const filteredPersons = copyPersons.filter((item) => item.id !== id);
-    this.setState({ persons: filteredPersons });
+    setPersons(filteredPersons);
 
     const index = copyPersons.findIndex((p) => p.id === id);
     toast.error(`${copyPersons[index].fullname} حذف گردید`);
   };
 
-  personNameChange = (event, id) => {
-    const copyPersons = [...this.state.persons];
+  const personNameChange = (event, id) => {
+    const copyPersons = [...getPersons];
     const index = copyPersons.findIndex((item) => item.id === id);
     copyPersons[index].fullname = event.target.value;
-    this.setState({ persons: copyPersons });
+    setPersons(copyPersons);
   };
 
-  handleNewPerson = () => {
-    const copyPersons = [...this.state.persons];
+  const handleNewPerson = () => {
+    const copyPersons = [...getPersons];
     const person = {
       id: Math.floor(Math.random() * 1000),
-      fullname: this.state.newPerson,
+      fullname: getNewPerson,
     };
     if (person.fullname !== "" && person.fullname !== " ") {
       copyPersons.push(person);
-      this.setState({ persons: copyPersons, newPerson: "" });
+      setPersons(copyPersons);
+      setNewPerson("");
       toast.success("شخص با موفقیت افزوده شد", {
         position: "bottom-right",
         closeButton: true,
@@ -51,47 +49,43 @@ class App extends Component {
     }
   };
 
-  addPerson = (event) => {
-    this.setState({ newPerson: event.target.value });
+  const addPerson = (event) => {
+    setNewPerson(event.target.value);
   };
 
-  render() {
-    const { showPersons } = this.state;
-
-    let show = null;
-    if (showPersons) {
-      show = <Afrad />;
-    }
-
-    return (
-      <SimpleContext.Provider
-        value={{
-          state: this.state,
-          handleShowPersons: this.handleShowPersons,
-          handleDeletePerson: this.handleDeletePerson,
-          handleNewPerson: this.handleNewPerson,
-          personNameChange: this.personNameChange,
-          addPerson: this.addPerson,
-        }}
-      >
-        <div className="rtl text-center">
-          <Header />
-          <NewPerson />
-
-          <button
-            onClick={this.handleShowPersons}
-            className={showPersons ? "btn btn-info" : "btn btn-danger"}
-          >
-            نمایش اشخاص
-          </button>
-
-          {show}
-
-          <ToastContainer bodyClassName="toastify" />
-        </div>
-      </SimpleContext.Provider>
-    );
+  let show = null;
+  if (getShowPerson) {
+    show = <Afrad />;
   }
-}
 
+  return (
+    <SimpleContext.Provider
+      value={{
+        persons: getPersons,
+        newPerson: getNewPerson,
+        handleShowPersons: handleShowPersons,
+        handleDeletePerson: handleDeletePerson,
+        handleNewPerson: handleNewPerson,
+        personNameChange: personNameChange,
+        addPerson: addPerson,
+      }}
+    >
+      <div className="rtl text-center">
+        <Header appTitle="مدیریت کننده اشخاص" />
+        <NewPerson />
+
+        <button
+          onClick={handleShowPersons}
+          className={getShowPerson ? "btn btn-info" : "btn btn-danger"}
+        >
+          نمایش اشخاص
+        </button>
+
+        {show}
+
+        <ToastContainer bodyClassName="toastify" />
+      </div>
+    </SimpleContext.Provider>
+  );
+};
 export default App;
