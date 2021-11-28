@@ -1,4 +1,5 @@
 import React from "react";
+import Proptypes from "prop-types";
 
 const Fard = ({ fullname, deleted, changed }) => {
   return (
@@ -23,4 +24,11 @@ const Fard = ({ fullname, deleted, changed }) => {
     </div>
   );
 };
+
+Fard.propTypes = {
+  fullname: Proptypes.string,
+  deleted: Proptypes.func,
+  changed: Proptypes.func,
+};
+
 export default Fard;
