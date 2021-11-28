@@ -53,11 +53,6 @@ const App = () => {
     setNewPerson(event.target.value);
   };
 
-  let show = null;
-  if (getShowPerson) {
-    show = <Afrad />;
-  }
-
   return (
     <SimpleContext.Provider
       value={{
@@ -81,7 +76,7 @@ const App = () => {
           نمایش اشخاص
         </button>
 
-        {show}
+        {getShowPerson ? <Afrad /> : null}
 
         <ToastContainer bodyClassName="toastify" />
       </div>

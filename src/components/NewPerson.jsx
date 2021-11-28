@@ -1,9 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import SimpleContext from "../SimpleContext";
 
 const NewPerson = () => {
+  const focusInput = useRef(null);
+
   const context = useContext(SimpleContext);
   const { newPerson } = context;
+
+  useEffect(() => {
+    focusInput.current.focus();
+  });
+
   return (
     <div className="m-2 p-2">
       <form
@@ -12,6 +19,7 @@ const NewPerson = () => {
       >
         <div className="input-group w-25">
           <input
+            ref={focusInput}
             type="text"
             className="form-control"
             placeholder="اسم بهم بده"
